@@ -8,11 +8,167 @@
       content="Entdecke, warum Alina zu den erfolgreichsten OnlyFans Creatorinnen Deutschlands gehört. ASMR, Rollenspiele & Fetisch-Content erwarten Dich.">
     <title>Alina – OnlyFans erfolgreichste Frau?</title>
     <style>
+      /* Simplified Creator Cards Styles */
+      .creator-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .creator-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .creator-image {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .creator-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .creator-card:hover .creator-image img {
+        transform: scale(1.05);
+      }
+
+      .creator-info {
+        padding: 20px;
+        text-align: center;
+      }
+
+      .creator-name {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        color: #fff;
+        font-weight: 600;
+        background: linear-gradient(45deg, #ff6b9d, #4ecdc4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .btn-primary {
+        display: inline-block;
+        padding: 12px 24px;
+        background: linear-gradient(45deg, #ff6b9d, #4ecdc4);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 0.95rem;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(255, 107, 157, 0.3);
+        background: linear-gradient(45deg, #ff5a8a, #3db8b0);
+      }
+
+      /* Grid Layout */
+      #creators-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        padding: 20px 0;
+      }
+
+      /* Pagination Styles */
+      #pagination-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+      }
+
+      .page-btn {
+        padding: 10px 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .page-btn:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .page-btn.active {
+        background: linear-gradient(45deg, #ff6b9d, #4ecdc4);
+        border-color: transparent;
+      }
+
+      .page-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Results Count */
+      #results-count-text {
+        color: rgba(255, 255, 255, 0.7);
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 0.95rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        #creators-grid {
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 20px;
+        }
+
+        .creator-name {
+          font-size: 1.2rem;
+        }
+
+        .creator-image {
+          height: 180px;
+        }
+
+        .creator-info {
+          padding: 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        #creators-grid {
+          grid-template-columns: 1fr;
+        }
+
+        #pagination-container {
+          gap: 8px;
+        }
+
+        .page-btn {
+          padding: 8px 12px;
+          font-size: 0.9rem;
+        }
+      }
+
       /* Language Popup */
       .creator-description {
         color: #ff6b9d;
         font-size: 1.2rem;
-        font-weight: 800;
+        font-weight: 700;
         line-height: 1.5;
       }
 
@@ -882,7 +1038,8 @@
         padding-bottom: 15px;
       }
 
-      .topic-text h3 {
+      .topic-text h3,
+      split-text-left h3 {
         font-size: 1.5rem;
         font-weight: 700;
         margin: 30px 0 15px 0;
@@ -890,11 +1047,41 @@
         position: relative;
       }
 
-      .topic-text h3::before {
+      .topic-text h3::before,
+      split-text-left h3::before {
         content: '✨';
         margin-right: 10px;
         animation: sparkle 2s ease-in-out infinite;
       }
+
+      .split-text-left h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 30px 0 15px 0;
+        color: #ffd93d;
+        position: relative;
+      }
+
+      .split-text-left h3::before {
+        content: '✨';
+        margin-right: 10px;
+        animation: sparkle 2s ease-in-out infinite;
+      }
+
+      .split-text-right h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 30px 0 15px 0;
+        color: #ffd93d;
+        position: relative;
+      }
+
+      .split-text-right h3::before {
+        content: '✨';
+        margin-right: 10px;
+        animation: sparkle 2s ease-in-out infinite;
+      }
+
 
       @keyframes sparkle {
 
@@ -1185,45 +1372,6 @@
         box-shadow: 0 5px 15px rgba(255, 107, 157, 0.2);
       }
 
-      .creators-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 30px;
-        margin-bottom: 50px;
-      }
-
-      .creator-card {
-        background: linear-gradient(145deg, #1a1a2e 0%, #2d1b3d 100%);
-        border: 2px solid transparent;
-        border-radius: 20px;
-        overflow: hidden;
-        position: relative;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .creator-image {
-        position: relative;
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-      }
-
-      .creator-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-      }
-
-      .creator-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 25px 50px rgba(255, 107, 157, 0.2);
-        border-color: #ff6b9d;
-      }
-
-      .creator-info {
-        padding: 30px;
-      }
 
       .stat-label {
         font-size: 0.85rem;
@@ -1292,39 +1440,7 @@
         margin-bottom: 80px;
       }
 
-      .page-btn {
-        background: linear-gradient(135deg, #1a1a2e, #2d1b3d);
-        border: 2px solid #333;
-        color: #ccc;
-        padding: 12px 20px;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        font-weight: 600;
-      }
 
-      .page-btn:hover:not(:disabled) {
-        background: linear-gradient(45deg, #ff6b9d, #4ecdc4);
-        border-color: transparent;
-        color: white;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
-      }
-
-      .page-btn.active {
-        background: linear-gradient(45deg, #ff6b9d, #4ecdc4);
-        border-color: transparent;
-        color: white;
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(255, 107, 157, 0.4);
-      }
-
-      .page-btn:disabled {
-        background: #111;
-        color: #555;
-        cursor: not-allowed;
-        border-color: #222;
-      }
 
       /* ==== NEW CREATIVE LAYOUTS FOR ALINA PHOTOS ==== */
       .image-strip-section {
@@ -1768,10 +1884,6 @@
           font-size: 1.8rem;
         }
 
-        .creators-grid {
-          grid-template-columns: 1fr;
-          gap: 20px;
-        }
 
         .pagination {
           gap: 8px;
@@ -2273,11 +2385,11 @@
       <div class="creators-section" id="other-models-section">
         <div class="content-header">
           <div class="results-count" id="results-count-text"></div>
-          <select class="sort-dropdown" id="sort-dropdown">
+          <!-- <select class="sort-dropdown" id="sort-dropdown">
             <option value="rank">Sort by: Rank</option>
             <option value="subscribers">Sort by: Fans</option>
             <option value="views">Sort by: Views</option>
-          </select>
+          </select> -->
         </div>
         <div class="creators-grid" id="creators-grid"></div>
         <div class="pagination" id="pagination-container"></div>
@@ -2291,297 +2403,6 @@
     </footer>
 
     <script>
-      // radial gradien
-      const interactiveTitle = document.querySelector('.article-content h1');
-
-      if (interactiveTitle) {
-        interactiveTitle.addEventListener('mousemove', (e) => {
-          // Menghitung posisi kursor (0-100) relatif terhadap elemen h1
-          const rect = interactiveTitle.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-
-          const xPercent = (x / rect.width) * 100;
-          const yPercent = (y / rect.height) * 100;
-
-          // Memperbarui variabel CSS
-          interactiveTitle.style.setProperty('--x', `${xPercent}%`);
-          interactiveTitle.style.setProperty('--y', `${yPercent}%`);
-        });
-
-        // (Opsional) Reset posisi saat kursor meninggalkan elemen
-        interactiveTitle.addEventListener('mouseleave', () => {
-          interactiveTitle.style.setProperty('--x', '50%');
-          interactiveTitle.style.setProperty('--y', '50%');
-        });
-      }
-      // data model
-      const modelData = [];
-      const baseModels = [
-        { name: "Alina ✨", category: "Solo", subs: 2520, views: 3100, rating: 4.9 },
-        { name: "Mary Haze❤️‍🔥", category: "Solo", subs: 2450, views: 2800, rating: 4.6 },
-        { name: "Lana", category: "Couple", subs: 2280, views: 4200, rating: 4.9 },
-        { name: "Dani Day", category: "Couple", subs: 2120, views: 2100, rating: 4.7 },
-        { name: "Rina Roxx", category: "Couple", subs: 2080, views: 1900, rating: 4.5 }
-      ];
-
-      for (let i = 0; i < 50; i++) {
-        const base = baseModels[i % baseModels.length];
-        modelData.push({
-          id: i + 1,
-          name: `${base.name}${i >= baseModels.length ? ' ' + (Math.floor(i / baseModels.length) + 1) : ''}`,
-          category: base.category,
-          subscribers: (base.subs - i * 15) * 10000,
-          views: (base.views - i * 20) * 1000000,
-          rating: parseFloat((base.rating - (i % 5) * 0.1).toFixed(1)),
-          reviews: 2000 - i * 25,
-          description: `Welcome to the profile of ${base.name}. Discover exclusive content and much more.`,
-          image: `https://picsum.photos/320/180?random=${i + 1}`,
-          channelUrl: "#"
-        });
-      }
-
-      const alinaData = modelData[0];
-      const otherModels = modelData.slice(1);
-
-      function formatNumber(num) {
-        if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
-        if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-        if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
-        return num.toString();
-      }
-
-      function generateStars(rating) {
-        const fullStars = Math.floor(rating);
-        return '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
-      }
-
-      // alina card logic
-      function setupFeaturedCard() {
-        const featuredImages = [
-          "image/1.jpg",
-          "image/2.jpg",
-          "image/3.jpg",
-          "image/4.jpg",
-          "image/5.jpg"
-        ];
-
-        const cardNode = document.getElementById('featured-card');
-        if (!cardNode) return;
-
-        if (!cardNode.querySelector('.slider-track')) {
-          cardNode.innerHTML = `
-          <div class="card-image-slider">
-            <div class="slider-track"></div>
-            <button class="card-slider-btn prev">❮</button>
-            <button class="card-slider-btn next">❯</button>
-            <div class="slider-dots"></div>
-          </div>
-          <div class="creator-info"></div>
-        `;
-        }
-
-        cardNode.querySelector('.creator-info').innerHTML = `
-    <h3 class="creator-name" style="background: linear-gradient(45deg, #ff6b9d, #4ecdc4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 2.2rem; margin-bottom: 25px;" data-key="featured-alina-name"> Alina, 26</h3>
-    <div style="margin-bottom: 30px;">
-      <p class="creator-description" data-key="alina-description">Finde heraus was Alina so besonders macht</p>
-    </div>
-    <a href="https://onlyfans.com/asmrbabe_gallery/c77" target="_blank" class="btn-primary" data-key="visit-channel-button">Visit Channel ❤️</a>`;
-
-        const trackEl = cardNode.querySelector('.slider-track');
-        const dotsContainer = cardNode.querySelector('.slider-dots');
-        trackEl.innerHTML = featuredImages.map(src => `<img src="${src}" alt="${alinaData.name} photo" class="slider-image">`).join('');
-        dotsContainer.innerHTML = featuredImages.map((_, index) => `<div class="dot" data-index="${index}"></div>`).join('');
-
-        let currentIndex = 0;
-        const slides = trackEl.querySelectorAll('.slider-image');
-        const dots = dotsContainer.querySelectorAll('.dot');
-
-        const updateSlider = () => {
-          if (slides.length === 0 || !slides[0].clientWidth) return;
-          const slideWidth = slides[0].clientWidth;
-          trackEl.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
-          dots.forEach(dot => dot.classList.remove('active'));
-          dots[currentIndex].classList.add('active');
-        };
-
-        cardNode.querySelector('.next').addEventListener('click', () => {
-          currentIndex = (currentIndex + 1) % slides.length;
-          updateSlider();
-        });
-
-        cardNode.querySelector('.prev').addEventListener('click', () => {
-          currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-          updateSlider();
-        });
-
-        // Add click functionality to dots
-        dots.forEach((dot, index) => {
-          dot.addEventListener('click', () => {
-            currentIndex = index;
-            updateSlider();
-          });
-        });
-
-        window.addEventListener('resize', () => setTimeout(updateSlider, 100));
-        setTimeout(updateSlider, 0);
-
-        // Auto-play functionality
-        setInterval(() => {
-          currentIndex = (currentIndex + 1) % slides.length;
-          updateSlider();
-        }, 5000);
-      }
-
-      // model logic
-      let filteredModels = [...otherModels];
-      let currentPage = 1;
-      let itemsPerPage = 12;
-
-      function renderOtherModels() {
-        const grid = document.getElementById('creators-grid');
-        grid.innerHTML = '';
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const paginatedItems = filteredModels.slice(startIndex, startIndex + itemsPerPage);
-
-        paginatedItems.forEach((model) => {
-          const rank = modelData.findIndex(m => m.id === model.id) + 1;
-          grid.innerHTML += `
-            <div class="creator-card">
-                <div class="creator-image"><img src="${model.image}" alt="${model.name}" loading="lazy"></div>
-                <div class="creator-info">
-                    <h3 class="creator-name">${model.name}</h3>
-                    <div class="creator-stats">
-                        <div class="stat-box">
-                          <div class="stat-number">${formatNumber(model.subscribers)}</div>
-                          <div class="stat-label">Fans</div>
-                        </div>
-                        <div class="stat-box">
-                          <div class="stat-number">${formatNumber(model.views)}</div>
-                          <div class="stat-label">Total Views</div>
-                        </div>
-                    </div>
-                    <a href="${model.channelUrl}" target="_blank" class="btn-primary">Visit Profile</a>
-                </div>
-            </div>`;
-        });
-
-        document.getElementById('results-count-text').textContent = `Zeige Modelle ${startIndex + 2} - ${Math.min(startIndex + itemsPerPage + 1, modelData.length)} von ${modelData.length}`;
-        setupPagination();
-      }
-
-      function setupPagination() {
-        const container = document.getElementById('pagination-container');
-        container.innerHTML = '';
-        const pageCount = Math.ceil(filteredModels.length / itemsPerPage);
-        if (pageCount <= 1) return;
-
-        const createButton = (text, page) => {
-          const button = document.createElement('button');
-          button.classList.add('page-btn');
-          button.innerText = text;
-          button.addEventListener('click', () => {
-            currentPage = page;
-            renderOtherModels();
-            document.getElementById('other-models-section').scrollIntoView({ behavior: 'smooth' });
-          });
-          return button;
-        };
-
-        const prevButton = createButton('← Zurück', currentPage - 1);
-        prevButton.disabled = currentPage === 1;
-        container.appendChild(prevButton);
-
-        for (let i = 1; i <= pageCount; i++) {
-          const pageButton = createButton(i, i);
-          if (i === currentPage) pageButton.classList.add('active');
-          container.appendChild(pageButton);
-        }
-
-        const nextButton = createButton('Weiter →', currentPage + 1);
-        nextButton.disabled = currentPage === pageCount;
-        container.appendChild(nextButton);
-      }
-
-      function sortOtherModels(sortBy) {
-        filteredModels.sort((a, b) => {
-          if (sortBy === 'rank') return a.id - b.id;
-          if (sortBy === 'subscribers') return b.subscribers - a.subscribers;
-          if (sortBy === 'views') return b.views - a.views;
-          return 0;
-        });
-        currentPage = 1;
-        renderOtherModels();
-      }
-      const successBox = document.querySelector('.success-content');
-
-      if (successBox) {
-        successBox.addEventListener('mousemove', (e) => {
-          const rect = successBox.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-
-          successBox.style.setProperty('--x-glow', `${x}px`);
-          successBox.style.setProperty('--y-glow', `${y}px`);
-        });
-      }
-
-      // cta script
-      const ctaSection = document.querySelector('.cta-section');
-
-      if (ctaSection) {
-        ctaSection.addEventListener('mousemove', (e) => {
-          const rect = ctaSection.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-
-          const xPercent = (x / rect.width) * 100;
-          const yPercent = (y / rect.height) * 100;
-
-          ctaSection.style.setProperty('--x-cta', `${xPercent}%`);
-          ctaSection.style.setProperty('--y-cta', `${yPercent}%`);
-        });
-
-        ctaSection.addEventListener('mouseleave', () => {
-          ctaSection.style.setProperty('--x-cta', '50%');
-          ctaSection.style.setProperty('--y-cta', '50%');
-        });
-      }
-
-      // ==== Photo Stack Click Functionality ====
-      function setupPhotoStack() {
-        const photoStack = document.querySelector('.photo-stack');
-        if (!photoStack) return;
-
-        const photos = photoStack.querySelectorAll('.stack-photo');
-        let currentOrder = [1, 2, 3];
-
-        photoStack.addEventListener('click', () => {
-          const firstIndex = currentOrder.shift();
-          currentOrder.push(firstIndex);
-
-          photos.forEach((photo, index) => {
-            const newZIndex = currentOrder[index];
-            photo.style.zIndex = newZIndex;
-            if (newZIndex === 3) {
-              photo.style.transform = 'rotate(-2deg) translateX(10px)';
-            } else if (newZIndex === 2) {
-              photo.style.transform = 'rotate(3deg) translateX(5px)';
-            } else {
-              photo.style.transform = 'rotate(-5deg) translateX(-10px)';
-            }
-          });
-        });
-      }
-
-      //  int
-      document.addEventListener('DOMContentLoaded', () => {
-        setupFeaturedCard();
-        setupPhotoStack();
-        document.getElementById('sort-dropdown').addEventListener('change', (e) => sortOtherModels(e.target.value));
-        sortOtherModels('rank');
-      });
-      // Language functionality - perbaikan lengkap
       const translations = {
         de: {
           "title": "OnlyFans' erfolgreichste Frau in Deutschland? Die bezaubernde Alina könnte es sein",
@@ -2736,12 +2557,339 @@
           "faq44": "Alina publishes new videos or pictures every day. Thanks to her high content rate, there is always fresh content for her fans.",
           "faq5": "Are personalized videos available upon request?",
           "faq55": "Yes, Alina offers personalized custom videos that are tailored specifically to the wishes of her subscribers.",
-
-
-
         }
       };
+      // ========== KEEP: Interactive Title (unchanged) ==========
+      const interactiveTitle = document.querySelector('.article-content h1');
 
+      if (interactiveTitle) {
+        interactiveTitle.addEventListener('mousemove', (e) => {
+          const rect = interactiveTitle.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const xPercent = (x / rect.width) * 100;
+          const yPercent = (y / rect.height) * 100;
+          interactiveTitle.style.setProperty('--x', `${xPercent}%`);
+          interactiveTitle.style.setProperty('--y', `${yPercent}%`);
+        });
+        interactiveTitle.addEventListener('mouseleave', () => {
+          interactiveTitle.style.setProperty('--x', '50%');
+          interactiveTitle.style.setProperty('--y', '50%');
+        });
+      }
+
+      // ========== REPLACE: Simplified Data Model ==========
+      // OLD: Complex baseModels with stats and generated modelData
+      // NEW: Simple creators array with just name and image
+      const creators = [
+        { name: "Mia Khalifa", image: "OtherModels/1.jpg" },
+        { name: "Bella Thorne", image: "OtherModels/2.jpg" },
+        { name: "Shilpa Sethi", image: "OtherModels/3.jpg" },
+        { name: "Sophie Dee", image: "OtherModels/4.jpg" },
+        { name: "Francia James", image: "OtherModels/5.jpg" },
+        { name: "Yeri Mua", image: "OtherModels/6.jpg" },
+        { name: "Pandora Kaaki", image: "OtherModels/7.jpg" },
+        { name: "Ana Cherí", image: "OtherModels/8.jpg" },
+        { name: "Laci Kay Somers", image: "OtherModels/9.jpg" },
+        { name: "Mia Malkova", image: "OtherModels/10.jpg" },
+        { name: "Viking Barbie", image: "OtherModels/11.jpg" },
+        { name: "Angela White", image: "OtherModels/12.jpg" },
+        { name: "Lyna Perez", image: "OtherModels/13.jpg" },
+        { name: "Maryana Ro", image: "OtherModels/14.jpg" },
+        { name: "Faith Lianne", image: "OtherModels/15.jpg" },
+        { name: "Natalie Eva Marie", image: "OtherModels/16.jpg" },
+        { name: "Francesca Farago", image: "OtherModels/17.jpg" },
+        { name: "Salome Munoz", image: "OtherModels/18.jpg" },
+        { name: "Tana Mongeau", image: "OtherModels/19.jpg" },
+        { name: "Carriejune Anne Bowlby", image: "OtherModels/20.jpg" },
+        { name: "Louisa Khovanski", image: "OtherModels/21.jpg" },
+        { name: "Skylar Mae", image: "OtherModels/22.jpg" },
+        { name: "Eva Elfie", image: "OtherModels/23.jpg" },
+        { name: "CherieDeVille", image: "OtherModels/24.jpg" },
+        { name: "Kristen Hancher", image: "OtherModels/25.jpg" },
+        { name: "Danyan Cat", image: "OtherModels/26.jpg" },
+        { name: "Marleny Aleelayn", image: "OtherModels/27.jpg" },
+        { name: "Tony Lopez", image: "OtherModels/28.jpg" },
+        { name: "Bruna Lima", image: "OtherModels/29.jpg" },
+        { name: "Lindsay Capuano", image: "OtherModels/30.jpg" },
+        { name: "Paige VanZant", image: "OtherModels/31.jpg" },
+        { name: "Daniela Alexis", image: "OtherModels/32.jpg" },
+        { name: "Kayleigh Swenson", image: "OtherModels/33.jpg" },
+        { name: "Emily Elizabeth", image: "OtherModels/34.jpg" },
+        { name: "Violet Myers", image: "OtherModels/35.jpg" },
+        { name: "Lena Nersesian", image: "OtherModels/36.jpg" },
+        { name: "Monica Huldt", image: "OtherModels/37.jpg" },
+        { name: "Heidi Lavon", image: "OtherModels/38.jpg" },
+        { name: "Kimbella", image: "OtherModels/39.jpg" },
+        { name: "Liliana Jasmine", image: "OtherModels/40.jpg" },
+        { name: "Gigi Gorgeous Getty", image: "OtherModels/41.jpg" },
+        { name: "Hannah Palmer", image: "OtherModels/42.jpg" },
+        { name: "Jenna Lee", image: "OtherModels/43.jpg" },
+        { name: "Amanda Ribas", image: "OtherModels/44.jpg" },
+        { name: "Ara", image: "OtherModels/45.jpg" },
+        { name: "Antje Utgaard", image: "OtherModels/46.jpg" },
+        { name: "Dan Dangler", image: "OtherModels/47.jpg" },
+        { name: "Cecilia Rose", image: "OtherModels/48.jpg" },
+        { name: "Dulce Soltero", image: "OtherModels/49.jpg" },
+        { name: "Jenna Lynn Meowri", image: "OtherModels/50.jpg" },
+        { name: "Whitney", image: "OtherModels/51.jpg" },
+        { name: "Jasmine Gifford", image: "OtherModels/52.jpg" },
+        { name: "Molly Eskam", image: "OtherModels/53.jpg" },
+        { name: "Bryce Adams", image: "OtherModels/54.jpg" },
+        { name: "CJ Sparxx", image: "OtherModels/55.jpg" },
+        { name: "Casey Boonstra", image: "OtherModels/56.jpg" },
+        { name: "Mirbelys Pineda", image: "OtherModels/57.jpg" },
+        { name: "Patrycia Kayy", image: "OtherModels/58.jpg" },
+        { name: "Trippie Bri", image: "OtherModels/59.jpg" },
+        { name: "Corinne Olympios", image: "OtherModels/60.jpg" },
+        { name: "Daddy Long Neck", image: "OtherModels/61.jpg" },
+        { name: "Sonja Morgan", image: "OtherModels/62.jpg" },
+        { name: "Chloe Sims", image: "OtherModels/63.jpg" },
+        { name: "Brittany Elizabeth Welsh", image: "OtherModels/64.jpg" },
+        { name: "Sugey Abrego", image: "OtherModels/65.jpg" },
+        { name: "Irma Vazquez", image: "OtherModels/66.jpg" },
+        { name: "Kiyomi Leslie", image: "OtherModels/67.jpg" },
+        { name: "Brittney Palmer", image: "OtherModels/68.jpg" },
+        { name: "Marli Buccola", image: "OtherModels/69.jpg" },
+        { name: "Sofia Gomez", image: "OtherModels/70.jpg" },
+        { name: "Whitney Johns", image: "OtherModels/71.jpg" },
+        { name: "Nara Ford", image: "OtherModels/72.jpg" },
+        { name: "Carla Leclercq", image: "OtherModels/73.jpg" },
+        { name: "Janna Breslin", image: "OtherModels/74.jpg" },
+        { name: "Polyana Viana", image: "OtherModels/75.jpg" },
+        { name: "Natalie Friedman", image: "OtherModels/76.jpg" },
+        { name: "Marcela Moss", image: "OtherModels/77.jpg" },
+        { name: "Emily Ahern", image: "OtherModels/78.jpg" },
+        { name: "Summer Lopez", image: "OtherModels/79.jpg" },
+        { name: "Brandi Andrews", image: "OtherModels/80.jpg" },
+        { name: "Silvia Saige", image: "OtherModels/81.jpg" },
+        { name: "Sally Teh S.L Dora Snow", image: "OtherModels/82.jpg" },
+        { name: "Kayley Gunner", image: "OtherModels/83.jpg" },
+        { name: "Kaitlyn Krems", image: "OtherModels/84.jpg" },
+        { name: "Sydney Lint", image: "OtherModels/85.jpg" },
+        { name: "Brandy Hembree", image: "OtherModels/86.jpg" },
+        { name: "Kerry Katona", image: "OtherModels/87.jpg" },
+        { name: "Lexi Cayla", image: "OtherModels/88.jpg" },
+        { name: "Darya Komarova", image: "OtherModels/89.jpg" },
+        { name: "Lizzy Capri", image: "OtherModels/90.jpg" },
+        { name: "Vic Hoa", image: "OtherModels/91.jpg" },
+        { name: "Victoria", image: "OtherModels/92.jpg" },
+        { name: "Alyssa Griffith", image: "OtherModels/93.jpg" },
+        { name: "Tiauna Riley", image: "OtherModels/94.jpg" },
+        { name: "Jen", image: "OtherModels/95.jpg" }
+      ];
+
+      // Single URL for all profiles
+      const PROFILE_URL = "https://onlyfans.com/asmrbabe_gallery/c80";
+
+      // DELETE: Old modelData generation, baseModels, formatNumber, generateStars functions
+
+      // ========== KEEP: Featured Card Logic (unchanged) ==========
+      function setupFeaturedCard() {
+        const featuredImages = [
+          "image/1.jpg",
+          "image/2.jpg",
+          "image/3.jpg",
+          "image/4.jpg",
+          "image/5.jpg"
+        ];
+
+        const cardNode = document.getElementById('featured-card');
+        if (!cardNode) return;
+
+        if (!cardNode.querySelector('.slider-track')) {
+          cardNode.innerHTML = `
+    <div class="card-image-slider">
+      <div class="slider-track"></div>
+      <button class="card-slider-btn prev">❮</button>
+      <button class="card-slider-btn next">❯</button>
+      <div class="slider-dots"></div>
+    </div>
+    <div class="creator-info"></div>
+  `;
+        }
+
+        cardNode.querySelector('.creator-info').innerHTML = `
+  <h3 class="creator-name" style="background: linear-gradient(45deg, #ff6b9d, #4ecdc4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 2.2rem; margin-bottom: 25px;" data-key="featured-alina-name">Alina, 26</h3>
+  <div style="margin-bottom: 30px;">
+    <p class="creator-description" data-key="alina-description">Finde heraus was Alina so besonders macht</p>
+  </div>
+  <a href="https://onlyfans.com/asmrbabe_gallery/c77" target="_blank" class="btn-primary" data-key="visit-channel-button">Visit Channel ❤️</a>`;
+
+        const trackEl = cardNode.querySelector('.slider-track');
+        const dotsContainer = cardNode.querySelector('.slider-dots');
+        trackEl.innerHTML = featuredImages.map(src => `<img src="${src}" alt="Alina photo" class="slider-image">`).join('');
+        dotsContainer.innerHTML = featuredImages.map((_, index) => `<div class="dot" data-index="${index}"></div>`).join('');
+
+        let currentIndex = 0;
+        const slides = trackEl.querySelectorAll('.slider-image');
+        const dots = dotsContainer.querySelectorAll('.dot');
+
+        const updateSlider = () => {
+          if (slides.length === 0 || !slides[0].clientWidth) return;
+          const slideWidth = slides[0].clientWidth;
+          trackEl.style.transform = `translateX(-${slideWidth * currentIndex}px)`;
+          dots.forEach(dot => dot.classList.remove('active'));
+          dots[currentIndex].classList.add('active');
+        };
+
+        cardNode.querySelector('.next').addEventListener('click', () => {
+          currentIndex = (currentIndex + 1) % slides.length;
+          updateSlider();
+        });
+
+        cardNode.querySelector('.prev').addEventListener('click', () => {
+          currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+          updateSlider();
+        });
+
+        dots.forEach((dot, index) => {
+          dot.addEventListener('click', () => {
+            currentIndex = index;
+            updateSlider();
+          });
+        });
+
+        window.addEventListener('resize', () => setTimeout(updateSlider, 100));
+        setTimeout(updateSlider, 0);
+
+        setInterval(() => {
+          currentIndex = (currentIndex + 1) % slides.length;
+          updateSlider();
+        }, 5000);
+      }
+
+      // ========== REPLACE: Simplified Creator Cards Logic ==========
+      // OLD: filteredModels with complex data and stats
+      // NEW: Simple creators rendering with pagination
+      let currentPage = 1;
+      let itemsPerPage = 12;
+
+      function renderCreators() {
+        const grid = document.getElementById('creators-grid');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const paginatedItems = creators.slice(startIndex, startIndex + itemsPerPage);
+
+        paginatedItems.forEach((creator) => {
+          grid.innerHTML += `
+      <div class="creator-card">
+        <div class="creator-image">
+          <img src="${creator.image}" alt="${creator.name}" loading="lazy">
+        </div>
+        <div class="creator-info">
+          <h3 class="creator-name">${creator.name}</h3>
+          <a href="${PROFILE_URL}" target="_blank" class="btn-primary" data-key="visit-profile">Visit Profile</a>
+        </div>
+      </div>`;
+        });
+
+        updateResultsCount();
+        setupPagination();
+      }
+
+      function setupPagination() {
+        const container = document.getElementById('pagination-container');
+        if (!container) return;
+
+        container.innerHTML = '';
+        const pageCount = Math.ceil(creators.length / itemsPerPage);
+        if (pageCount <= 1) return;
+
+        const createButton = (text, page) => {
+          const button = document.createElement('button');
+          button.classList.add('page-btn');
+          button.innerText = text;
+          button.addEventListener('click', () => {
+            currentPage = page;
+            renderCreators();
+            const section = document.getElementById('other-models-section');
+            if (section) section.scrollIntoView({ behavior: 'smooth' });
+          });
+          return button;
+        };
+
+        const prevButton = createButton('← Zurück', currentPage - 1);
+        prevButton.disabled = currentPage === 1;
+        container.appendChild(prevButton);
+
+        for (let i = 1; i <= pageCount; i++) {
+          const pageButton = createButton(i, i);
+          if (i === currentPage) pageButton.classList.add('active');
+          container.appendChild(pageButton);
+        }
+
+        const nextButton = createButton('Weiter →', currentPage + 1);
+        nextButton.disabled = currentPage === pageCount;
+        container.appendChild(nextButton);
+      }
+
+      // DELETE: sortOtherModels function (no longer needed as we don't have stats to sort)
+
+      // ========== KEEP: Success Box & CTA interactions (unchanged) ==========
+      const successBox = document.querySelector('.success-content');
+
+      if (successBox) {
+        successBox.addEventListener('mousemove', (e) => {
+          const rect = successBox.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          successBox.style.setProperty('--x-glow', `${x}px`);
+          successBox.style.setProperty('--y-glow', `${y}px`);
+        });
+      }
+
+      const ctaSection = document.querySelector('.cta-section');
+
+      if (ctaSection) {
+        ctaSection.addEventListener('mousemove', (e) => {
+          const rect = ctaSection.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          const xPercent = (x / rect.width) * 100;
+          const yPercent = (y / rect.height) * 100;
+
+          ctaSection.style.setProperty('--x-cta', `${xPercent}%`);
+          ctaSection.style.setProperty('--y-cta', `${yPercent}%`);
+        });
+
+        ctaSection.addEventListener('mouseleave', () => {
+          ctaSection.style.setProperty('--x-cta', '50%');
+          ctaSection.style.setProperty('--y-cta', '50%');
+        });
+      }
+
+      // ========== KEEP: Photo Stack Logic (unchanged) ==========
+      function setupPhotoStack() {
+        const photoStack = document.querySelector('.photo-stack');
+        if (!photoStack) return;
+
+        const photos = photoStack.querySelectorAll('.stack-photo');
+        let currentOrder = [1, 2, 3];
+
+        photoStack.addEventListener('click', () => {
+          const firstIndex = currentOrder.shift();
+          currentOrder.push(firstIndex);
+
+          photos.forEach((photo, index) => {
+            const newZIndex = currentOrder[index];
+            photo.style.zIndex = newZIndex;
+            if (newZIndex === 3) {
+              photo.style.transform = 'rotate(-2deg) translateX(10px)';
+            } else if (newZIndex === 2) {
+              photo.style.transform = 'rotate(3deg) translateX(5px)';
+            } else {
+              photo.style.transform = 'rotate(-5deg) translateX(-10px)';
+            }
+          });
+        });
+      }
+
+      // ========== KEEP: Language Functionality (modified slightly) ==========
       let currentLanguage = 'de';
 
       function setLanguage(lang) {
@@ -2751,9 +2899,7 @@
           popup.style.display = 'none';
         }
 
-        // Update the custom dropdown display
         updateDropdownDisplay(lang);
-
         localStorage.setItem('selectedLanguage', lang);
         translatePage();
       }
@@ -2769,79 +2915,36 @@
       function translatePage() {
         document.querySelectorAll('[data-key]').forEach(element => {
           const key = element.getAttribute('data-key');
-          if (translations[currentLanguage] && translations[currentLanguage][key]) {
+          if (typeof translations !== 'undefined' && translations[currentLanguage] && translations[currentLanguage][key]) {
             element.innerHTML = translations[currentLanguage][key];
           }
         });
 
-        // Update results count text
         updateResultsCount();
       }
 
+      // MODIFIED: Updated results count function
       function updateResultsCount() {
         const resultsElement = document.getElementById('results-count-text');
-        if (resultsElement && filteredModels) {
+        if (resultsElement) {
           const startIndex = (currentPage - 1) * itemsPerPage;
-          const showingText = translations[currentLanguage]['showing-models'] || 'Showing Models';
-          const ofText = translations[currentLanguage]['of'] || 'of';
-          resultsElement.textContent = `${showingText} ${startIndex + 2} - ${Math.min(startIndex + itemsPerPage + 1, modelData.length)} ${ofText} ${modelData.length}`;
+          const endIndex = Math.min(startIndex + itemsPerPage, creators.length);
+
+          // Use translations if available, otherwise fallback to German
+          let showingText, ofText;
+          if (typeof translations !== 'undefined' && translations[currentLanguage]) {
+            showingText = translations[currentLanguage]['showing-models'] || 'Zeige Modelle';
+            ofText = translations[currentLanguage]['of'] || 'von';
+          } else {
+            showingText = 'Zeige Modelle';
+            ofText = 'von';
+          }
+
+          resultsElement.textContent = `${showingText} ${startIndex + 1} - ${endIndex} ${ofText} ${creators.length}`;
         }
       }
 
-      // Initialize language on page load
-      document.addEventListener('DOMContentLoaded', () => {
-        const savedLang = localStorage.getItem('selectedLanguage');
-        const popup = document.getElementById('languagePopup');
-
-        if (savedLang && (savedLang === 'de' || savedLang === 'en')) {
-          setLanguage(savedLang);
-        } else if (popup) {
-          popup.style.display = 'flex';
-        }
-
-        // Setup other functionality
-        setupFeaturedCard();
-        setupPhotoStack();
-
-        const sortDropdown = document.getElementById('sort-dropdown');
-        if (sortDropdown) {
-          sortDropdown.addEventListener('change', (e) => sortOtherModels(e.target.value));
-        }
-
-        sortOtherModels('rank');
-      });
-      function renderOtherModels() {
-        const grid = document.getElementById('creators-grid');
-        grid.innerHTML = '';
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const paginatedItems = filteredModels.slice(startIndex, startIndex + itemsPerPage);
-
-        paginatedItems.forEach((model) => {
-          const rank = modelData.findIndex(m => m.id === model.id) + 1;
-          grid.innerHTML += `
-      <div class="creator-card">
-          <div class="creator-image"><img src="${model.image}" alt="${model.name}" loading="lazy"></div>
-          <div class="creator-info">
-              <h3 class="creator-name">${model.name}</h3>
-              <div class="creator-stats">
-                  <div class="stat-box">
-                    <div class="stat-number">${formatNumber(model.subscribers)}</div>
-                    <div class="stat-label">Fans</div>
-                  </div>
-                  <div class="stat-box">
-                    <div class="stat-number">${formatNumber(model.views)}</div>
-                    <div class="stat-label">Total Views</div>
-                  </div>
-              </div>
-              <a href="${model.channelUrl}" target="_blank" class="btn-primary" data-key="visit-profile">Visit Profile</a>
-          </div>
-      </div>`;
-        });
-
-        updateResultsCount();
-        setupPagination();
-      }
-      // Custom dropdown functionality
+      // ========== KEEP: Custom Dropdown Logic (unchanged) ==========
       function setupCustomDropdown() {
         const customSelect = document.getElementById('customSelect');
         const selectTrigger = document.getElementById('selectTrigger');
@@ -2854,14 +2957,12 @@
           customSelect.classList.toggle('open');
         });
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
           if (!customSelect.contains(e.target)) {
             customSelect.classList.remove('open');
           }
         });
 
-        // Handle option selection
         selectOptions.addEventListener('click', (e) => {
           const option = e.target.closest('.option');
           if (!option) return;
@@ -2870,22 +2971,65 @@
           const flagSvg = option.querySelector('.flag-icon').outerHTML;
           const text = value.toUpperCase();
 
-          // Update selected option display
           selectedOption.innerHTML = `${flagSvg}<span class="lang-text">${text}</span>`;
 
-          // Update selected state
           document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
           option.classList.add('selected');
 
-          // Close dropdown
           customSelect.classList.remove('open');
-
-          // Change language
           setLanguage(value);
         });
       }
 
-      // Update DOMContentLoaded event
+      function updateDropdownDisplay(lang) {
+        const selectedOption = document.getElementById('selectedOption');
+        if (!selectedOption) return;
+
+        const flags = {
+          de: `<svg class="flag-icon" viewBox="0 0 45 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="45" height="10.67" fill="#000000"></rect>
+        <rect y="10.67" width="45" height="10.67" fill="#DD0000"></rect>
+        <rect y="21.33" width="45" height="10.67" fill="#FFCE00"></rect>
+      </svg>`,
+          en: `<img class="flag-icon" src="https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg" alt="English Language Flag">`
+        };
+
+        selectedOption.innerHTML = `${flags[lang]}<span class="lang-text">${lang.toUpperCase()}</span>`;
+
+        document.querySelectorAll('.option').forEach(opt => {
+          opt.classList.toggle('selected', opt.getAttribute('data-value') === lang);
+        });
+      }
+
+      // ========== NEW: Helper Functions for Easy Management ==========
+      // Add new creator easily
+      function addCreator(name, imagePath) {
+        creators.push({ name: name, image: imagePath });
+        renderCreators();
+        console.log(`Creator "${name}" successfully added!`);
+      }
+
+      // Remove creator by name
+      function removeCreator(name) {
+        const index = creators.findIndex(creator => creator.name === name);
+        if (index !== -1) {
+          creators.splice(index, 1);
+          currentPage = 1; // Reset to first page
+          renderCreators();
+          console.log(`Creator "${name}" successfully removed!`);
+        } else {
+          console.log(`Creator "${name}" not found!`);
+        }
+      }
+
+      // Change profile URL for all creators
+      function changeProfileUrl(newUrl) {
+        PROFILE_URL = newUrl;
+        renderCreators();
+        console.log(`Profile URL changed to: ${newUrl}`);
+      }
+
+      // ========== MODIFIED: Main Initialization ==========
       document.addEventListener('DOMContentLoaded', () => {
         setupCustomDropdown();
 
@@ -2899,39 +3043,14 @@
           popup.style.display = 'flex';
         }
 
-        // Setup other functionality
+        // Setup all functionality
         setupFeaturedCard();
         setupPhotoStack();
 
-        const sortDropdown = document.getElementById('sort-dropdown');
-        if (sortDropdown) {
-          sortDropdown.addEventListener('change', (e) => sortOtherModels(e.target.value));
-        }
-
-        sortOtherModels('rank');
+        // REMOVED: Sort dropdown functionality (no longer needed)
+        // Instead, just render the creators
+        renderCreators();
       });
-
-      // Function to update dropdown display
-      function updateDropdownDisplay(lang) {
-        const selectedOption = document.getElementById('selectedOption');
-        if (!selectedOption) return;
-
-        const flags = {
-          de: `<svg class="flag-icon" viewBox="0 0 45 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="45" height="10.67" fill="#000000"></rect>
-              <rect y="10.67" width="45" height="10.67" fill="#DD0000"></rect>
-              <rect y="21.33" width="45" height="10.67" fill="#FFCE00"></rect>
-            </svg>`,
-          en: `<img class="flag-icon" src="https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg" alt="English Language Flag">`
-        };
-
-        selectedOption.innerHTML = `${flags[lang]}<span class="lang-text">${lang.toUpperCase()}</span>`;
-
-        // Update selected option in dropdown
-        document.querySelectorAll('.option').forEach(opt => {
-          opt.classList.toggle('selected', opt.getAttribute('data-value') === lang);
-        });
-      }
     </script>
   </body>
 
